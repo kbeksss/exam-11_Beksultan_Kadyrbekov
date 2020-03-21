@@ -49,8 +49,6 @@ const run = async () => {
         phone: '0770858585',
         token: nanoid()
     });
-
-
     mongoose.connection.close();
 };
 
