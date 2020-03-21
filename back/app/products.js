@@ -5,6 +5,7 @@ const nanoid = require('nanoid');
 
 const config = require('../config');
 
+const auth = require('../middleware/auth');
 const Product = require('../models/Product');
 
 const router = express.Router();
@@ -19,8 +20,31 @@ const storage = multer.diskStorage({
 const upload = multer({storage});
 
 router.get('/', async (req, res) => {
-    const products = await Product.find().populate('category');
-    res.send(products);
+    try {
+        const products = await Product.find().populate('category').populate('owner',[`_id` , `username`, `name`, `phone`]);
+        res.send(products);
+    } catch (e) {
+        return res.status(400).send(e);
+    }
+
+});
+
+router.post('/', [auth, upload.single('image')], async (req, res) => {
+    const productData = req.body;
+
+    if(req.file){
+        productData.image = req.file.filename;
+    }
+    productData.owner = req.user._id;
+    const product = new Product(productData);
+
+    try {
+        await product.save();
+
+        return res.send({id: product._id});
+    } catch (e) {
+        return res.status(400).send(e);
+    }
 });
 
 module.exports = router;
