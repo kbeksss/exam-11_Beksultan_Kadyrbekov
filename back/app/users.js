@@ -2,12 +2,11 @@ const express = require('express');
 
 const bcrypt = require('bcrypt');
 
-const Users = require('../models/User');
+const User = require('../models/User');
 const router = express.Router();
 
 router.post('/', async (req, res) => {
-    const user = new Users(req.body);
-
+    const user = new User(req.body);
     try{
         user.generateToken();
         await user.save();
@@ -18,7 +17,7 @@ router.post('/', async (req, res) => {
 });
 
 router.post('/sessions', async (req, res) => {
-    const user = await Users.findOne({username: req.body.username});
+    const user = await User.findOne({username: req.body.username});
 
     if(!user){
         return res.status(400).send({error: 'Username or password not correct!'})
@@ -34,6 +33,23 @@ router.post('/sessions', async (req, res) => {
     await user.save();
 
     return res.send(user);
+});
+
+router.delete('/sessions', async(req, res) => {
+    const success = {message: 'Success'};
+
+    try{
+        const token = req.get('Authorization').split(' ')[1];
+        if(!token) return res.send(success);
+        const user = await User.findOne({token});
+        if(!user) return res.send(success);
+        user.generateToken();
+        await user.save();
+        return res.send(success);
+    } catch(e) {
+        return res.send(success);
+    }
+
 });
 
 module.exports = router;

@@ -8,7 +8,6 @@ import App from './App';
 import store, {history} from './store/configureStore';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 const app = (
     <Provider store={store}>

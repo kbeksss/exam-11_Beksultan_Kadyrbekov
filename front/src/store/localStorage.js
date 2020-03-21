@@ -24,7 +24,6 @@ export const loadFromLocalStorage = () => {
 const actions = [LOGOUT_USER_SUCCESS, LOGIN_USER_SUCCESS];
 
 export const localStorageMiddleware = store => next => action => {
-    console.log('need to save to localstorage');
     let result = next(action);
     if(actions.includes(action.type)){
         saveToLocalStorage({
