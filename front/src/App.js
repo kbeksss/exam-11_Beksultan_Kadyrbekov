@@ -7,6 +7,7 @@ import Login from "./containers/Login/Login";
 import Register from "./containers/Register/Register";
 import ByCategory from "./containers/ByCategory/ByCategory";
 import SingleProduct from "./containers/SingleProduct/SingleProduct";
+import AddProduct from "./containers/AddProduct/AddProduct";
 
 function App() {
     return (
@@ -18,6 +19,7 @@ function App() {
                 <Route path='/category/:categoryId' exact component={ByCategory}/>
                 <Route path='/login' exact component={Login}/>
                 <Route path='/register' exact component={Register}/>
+                <Route path='/add-product' exact component={AddProduct}/>
             </Switch>
         </>
     );

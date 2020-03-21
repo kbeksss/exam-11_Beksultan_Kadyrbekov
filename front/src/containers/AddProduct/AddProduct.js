@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
 import {Button, Col, Container, Form, FormGroup, Input, Label} from "reactstrap";
 import FormElement from "../../components/UI/Form/FormElement";
-import {AxiosInstance as axiosApi} from "axios";
 import {useSelector} from "react-redux";
+import {NavLink} from "react-router-dom";
+import {AxiosInstance as axiosApi} from "axios";
 
 const AddProduct = (props) => {
     const user = useSelector(state => state.users.user);
@@ -22,55 +23,60 @@ const AddProduct = (props) => {
         await axiosApi.post('/products', formData, {headers: {"Authorization": "Token " + user.token}});
         props.history.push('/');
     };
-    return (
-        <Container>
-            <Form onSubmit={formSubmit}>
-                <FormElement
-                    propertyName='title'
-                    title='Title'
-                    value={formInputs.title}
-                    onChange={onInputChange}
-                    type='text'
-                    placeholder='Enter the product title'
-                    required={true}
-                />
-                <FormElement
-                    propertyName='description'
-                    title='Description'
-                    value={formInputs.description}
-                    onChange={onInputChange}
-                    type='textarea'
-                    placeholder='Enter the product description'
-                    required={true}
-                />
-                <FormElement
-                    propertyName='image'
-                    title='Description'
-                    value={formInputs.description}
-                    onChange={onInputChange}
-                    type='textarea'
-                    placeholder='Enter the product description'
-                    required={true}
-                />
-                <FormGroup>
-                    <Label sm={2} for="image">Image</Label>
-                    <Col sm={10}>
-                        <Input
-                            type="file"
-                            name="image" id="image"
-                            onChange={onFileChange}
-                        />
-                    </Col>
-                </FormGroup>
-                <FormGroup row>
-                    <Col sm={{offset:2, size: 10}}>
-                        <Button type="submit" color="primary">Send Post</Button>
-                    </Col>
-                </FormGroup>
-            </Form>
-        </Container>
+    if(user) {
+        return (
+            <Container>
+                <Form onSubmit={formSubmit}>
+                    <FormElement
+                        propertyName='title'
+                        title='Title'
+                        value={formInputs.title}
+                        onChange={onInputChange}
+                        type='text'
+                        placeholder='Enter the product title'
+                        required={true}
+                    />
+                    <FormElement
+                        propertyName='description'
+                        title='Description'
+                        value={formInputs.description}
+                        onChange={onInputChange}
+                        type='textarea'
+                        placeholder='Enter the product description'
+                        required={true}
+                    />
+                    <FormElement
+                        propertyName='price'
+                        title='Price'
+                        value={formInputs.price}
+                        onChange={onInputChange}
+                        type='number'
+                        placeholder='Enter the product price'
+                        required={true}
+                    />
+                    <FormGroup>
+                        <Label sm={2} for="image">Image</Label>
+                        <Col sm={10}>
+                            <Input
+                                type="file"
+                                name="image" id="image"
+                                onChange={onFileChange}
+                            />
+                        </Col>
+                    </FormGroup>
+                    <FormGroup row>
+                        <Col sm={{offset:2, size: 10}}>
+                            <Button type="submit" color="primary">Send Post</Button>
+                        </Col>
+                    </FormGroup>
+                </Form>
+            </Container>
 
-    );
+        );
+    } else {
+        return <h2><NavLink to='/register'>Sign up</NavLink> or <NavLink to='/login'>Login</NavLink></h2>
+    }
+
 };
 
 export default AddProduct;
