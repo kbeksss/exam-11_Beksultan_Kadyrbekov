@@ -1,16 +1,30 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {NavLink} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchCategories} from "../store/actions/categoriesActions";
 
-const Sidebar = () => {
+const Sidebar = ({className}) => {
+    const dispatch = useDispatch();
+    const categories = useSelector(state => state.categories.categories);
+    useEffect(() => {
+        dispatch(fetchCategories());
+    }, [dispatch]);
+    console.log(categories);
     return (
-        <aside>
+        <aside className={className}>
             <nav>
                 <ul>
-                    <NavLink to='/'>All</NavLink>
-                    <NavLink to='/cars'>Cars</NavLink>
-                    <NavLink to='/furniture'>Furniture</NavLink>
-                    <NavLink to='/real-estate'>Real Estate</NavLink>
-                    <NavLink to='/others'>Others</NavLink>
+                    <li>
+                        <NavLink to='/'>Home</NavLink>
+                    </li>
+                    {categories.map(category => {
+                        const link = '/category/' + category._id;
+                        return (
+                            <li key={category._id}>
+                                <NavLink to={link}>{category.title}</NavLink>
+                            </li>
+                        )
+                    })}
                 </ul>
             </nav>
         </aside>

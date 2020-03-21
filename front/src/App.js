@@ -5,6 +5,7 @@ import {Route, Switch} from "react-router-dom";
 import Home from "./containers/Home/Home";
 import Login from "./containers/Login/Login";
 import Register from "./containers/Register/Register";
+import ByCategory from "./containers/ByCategory";
 
 function App() {
     return (
@@ -12,6 +13,7 @@ function App() {
             <Toolbar/>
             <Switch>
                 <Route path='/' exact component={Home}/>
+                <Route path='/category/:categoryId' exact component={ByCategory}/>
                 <Route path='/login' exact component={Login}/>
                 <Route path='/register' exact component={Register}/>
             </Switch>

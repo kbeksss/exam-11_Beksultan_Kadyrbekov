@@ -11,10 +11,10 @@ const Toolbar = () => {
     const dispatch = useDispatch();
     return (
         <Navbar color="light" light expand="md">
-            <NavbarBrand tag={RouterNavLink} to="/">Shop</NavbarBrand>
+            <NavbarBrand tag={RouterNavLink} to="/">Online shop</NavbarBrand>
             <Nav className="ml-auto" navbar>
                 <NavItem>
-                    <NavLink tag={RouterNavLink} to="/" exact>Products</NavLink>
+                    <NavLink tag={RouterNavLink} to="/" exact>Home</NavLink>
                 </NavItem>
                 {user ? (
                     <UserMenu logout={() => dispatch(logoutUser())} user={user}/>

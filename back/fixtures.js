@@ -15,15 +15,20 @@ const run = async () => {
     }
 
     const [cars, computers, furniture, realEstate, others] = await Category.create({
-        title: 'Cars'
+        title: 'Cars',
+        value: 'cars'
     }, {
-        title: 'Computers'
+        title: 'Computers',
+        value: 'computers'
     }, {
-        title: 'Furniture'
+        title: 'Furniture',
+        value: 'furniture'
     }, {
-        title: 'Real Estate'
+        title: 'Real Estate',
+        value: 'real-estate'
     }, {
-        title: 'Others'
+        title: 'Others',
+        value: 'others'
     });
 
     const [userOne, userTwo, userThree] = await User.create({
