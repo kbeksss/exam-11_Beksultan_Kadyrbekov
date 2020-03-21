@@ -2,14 +2,11 @@ const express = require('express');
 
 const bcrypt = require('bcrypt');
 
-
-const auth = require('../middleware/auth');
-
-const User = require('../models/User');
+const Users = require('../models/User');
 const router = express.Router();
 
 router.post('/', async (req, res) => {
-    const user = new User(req.body);
+    const user = new Users(req.body);
 
     try{
         user.generateToken();
@@ -21,7 +18,7 @@ router.post('/', async (req, res) => {
 });
 
 router.post('/sessions', async (req, res) => {
-    const user = await User.findOne({username: req.body.username});
+    const user = await Users.findOne({username: req.body.username});
 
     if(!user){
         return res.status(400).send({error: 'Username or password not correct!'})
