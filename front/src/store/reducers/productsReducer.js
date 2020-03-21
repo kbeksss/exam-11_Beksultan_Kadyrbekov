@@ -6,7 +6,7 @@ import {
 
 const initialState = {
     products: [],
-    singleProduct: {}
+    singleProduct: null
 };
 
 const productsReducer = (state = initialState, action) => {

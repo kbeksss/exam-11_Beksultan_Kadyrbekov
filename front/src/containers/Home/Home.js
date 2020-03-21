@@ -12,8 +12,6 @@ const Home = props => {
     useEffect(() => {
         dispatch(fetchProducts())
     }, [dispatch]);
-
-    console.log(products);
     return (
         <>
           <Container>
@@ -22,6 +20,7 @@ const Home = props => {
                   <div className='w-75'>
                       {products.map(product => (
                           <Card
+                              onClick={() => props.history.push('/product/' + product._id)}
                               key={product._id}
                               className='w-25 d-inline-block m-2 text-center p-1'
                           >

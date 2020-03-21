@@ -21,18 +21,27 @@ const storage = multer.diskStorage({
 const upload = multer({storage});
 
 router.get('/', async (req, res) => {
-    try {
-        const products = await Product.find().populate('category').populate('owner',[`_id` , `username`, `name`, `phone`]);
-        res.send(products);
-    } catch (e) {
-        return res.status(400).send(e);
+    if(req.query.productId){
+        try{
+            const product = await Product.findById(req.query.productId).populate('owner',[`_id` , `username`, `name`, `phone`]);
+            return res.send(product);
+        } catch (e) {
+            return res.status(404).send(e);
+        }
+    }  else {
+        try {
+            const products = await Product.find().populate('category').populate('owner',[`_id` , `username`, `name`, `phone`]);
+            res.send(products);
+        } catch (e) {
+            return res.status(400).send(e);
+        }
     }
 });
 router.get('/:categoryId', async (req, res) => {
-    console.log(req.params.categoryId);
     const products = await Product.find({category: ObjectId(req.params.categoryId)});
     return res.send(products);
 });
+
 
 router.post('/', [auth, upload.single('image')], async (req, res) => {
     const productData = req.body;

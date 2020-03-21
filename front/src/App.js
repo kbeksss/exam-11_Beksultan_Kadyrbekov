@@ -5,7 +5,8 @@ import {Route, Switch} from "react-router-dom";
 import Home from "./containers/Home/Home";
 import Login from "./containers/Login/Login";
 import Register from "./containers/Register/Register";
-import ByCategory from "./containers/ByCategory";
+import ByCategory from "./containers/ByCategory/ByCategory";
+import SingleProduct from "./containers/SingleProduct/SingleProduct";
 
 function App() {
     return (
@@ -13,6 +14,7 @@ function App() {
             <Toolbar/>
             <Switch>
                 <Route path='/' exact component={Home}/>
+                <Route path='/product/:productId' exact component={SingleProduct}/>
                 <Route path='/category/:categoryId' exact component={ByCategory}/>
                 <Route path='/login' exact component={Login}/>
                 <Route path='/register' exact component={Register}/>

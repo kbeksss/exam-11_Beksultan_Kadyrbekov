@@ -1,9 +1,9 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {getByCategory} from "../store/actions/productsActions";
-import ImageThumbnail from "../components/ImageThumbnail/ImageThumbnail";
+import {getByCategory} from "../../store/actions/productsActions";
+import ImageThumbnail from "../../components/ImageThumbnail/ImageThumbnail";
 import {Badge, Card, Container, Row} from "reactstrap";
-import Sidebar from "../components/Sidebar";
+import Sidebar from "../../components/Sidebar";
 
 const ByCategory = props => {
     const products = useSelector(state => state.products.products);
@@ -11,7 +11,6 @@ const ByCategory = props => {
     useEffect(() => {
         dispatch(getByCategory(props.match.params.categoryId));
     }, [dispatch, props.match.params.categoryId]);
-    console.log(products);
     return (
         <>
             <Container>

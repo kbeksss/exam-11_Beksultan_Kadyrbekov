@@ -9,13 +9,12 @@ const Sidebar = ({className}) => {
     useEffect(() => {
         dispatch(fetchCategories());
     }, [dispatch]);
-    console.log(categories);
     return (
         <aside className={className}>
             <nav>
                 <ul>
                     <li>
-                        <NavLink to='/'>Home</NavLink>
+                        <NavLink to='/'>All</NavLink>
                     </li>
                     {categories.map(category => {
                         const link = '/category/' + category._id;

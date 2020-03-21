@@ -22,7 +22,8 @@ export const fetchProducts = () => {
 export const getSingleProduct = (productId) => {
     return async dispatch => {
         try {
-            const result = await axiosApi.get('/products/' + productId);
+            const result = await axiosApi.get('/products?productId=' + productId);
+            console.log(result.data);
             dispatch(getSingleProductSuccess(result.data));
         } catch(e){
             console.error(e);
@@ -33,7 +34,6 @@ export const getSingleProduct = (productId) => {
 export const getByCategory = (categoryId) => {
     return async dispatch => {
         try {
-            console.log(categoryId);
             const result = await axiosApi.get('/products/' + categoryId);
             dispatch(getByCategorySuccess(result.data));
         } catch (e){
