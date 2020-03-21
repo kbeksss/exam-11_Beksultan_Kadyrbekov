@@ -3,7 +3,7 @@ import {Button, Col, Container, Form, FormGroup, Input, Label} from "reactstrap"
 import FormElement from "../../components/UI/Form/FormElement";
 import {useSelector} from "react-redux";
 import {NavLink} from "react-router-dom";
-import {AxiosInstance as axiosApi} from "axios";
+import axiosApi from "../../axiosApi";
 
 const AddProduct = (props) => {
     const user = useSelector(state => state.users.user);
