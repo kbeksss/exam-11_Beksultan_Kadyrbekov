@@ -7,6 +7,7 @@ import axiosApi from "../../axiosApi";
 
 const AddProduct = (props) => {
     const user = useSelector(state => state.users.user);
+    const categories = useSelector(state => state.categories.categories);
     const [formInputs, setFormInputs] = useState({title: '', description: '', image: '', price: '', category: ''});
     const onInputChange = e => {
         setFormInputs({...formInputs, [e.target.name]: e.target.value});
@@ -20,6 +21,7 @@ const AddProduct = (props) => {
         Object.keys(formInputs).forEach(key => {
             formData.append(key, formInputs[key]);
         });
+        console.log(formData);
         await axiosApi.post('/products', formData, {headers: {"Authorization": "Token " + user.token}});
         props.history.push('/');
     };
@@ -64,11 +66,17 @@ const AddProduct = (props) => {
                             />
                         </Col>
                     </FormGroup>
+                    <Input value={formInputs.category} onChange={onInputChange} type="select" name="selectMulti" id="exampleSelectMulti">
+                        {categories.map(category => (
+                            <option key={category._id} value={category.value}>{category.title}</option>
+                        ))}
+                    </Input>
                     <FormGroup row>
                         <Col sm={{offset:2, size: 10}}>
                             <Button type="submit" color="primary">Send Post</Button>
                         </Col>
                     </FormGroup>
+
                 </Form>
             </Container>
 

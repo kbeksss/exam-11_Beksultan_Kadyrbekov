@@ -45,7 +45,7 @@ router.get('/:categoryId', async (req, res) => {
 
 router.post('/', [auth, upload.single('image')], async (req, res) => {
     const productData = req.body;
-
+    console.log(req.body);
     if(req.file){
         productData.image = req.file.filename;
     }
